@@ -71,10 +71,13 @@ class BaseRateBackend(object):
 class OpenExchangeBackend(BaseRateBackend):
     source_name = "openexchange.org"
 
-    def __init__(self, date):
-        if not money_rates_settings.OPENEXCHANGE_URL:
+    def __init__(self):
+        if not money_rates_settings.OPENEXCHANGE_URL_LATEST:
             raise ImproperlyConfigured(
-                "OPENEXCHANGE_URL setting should not be empty when using OpenExchangeBackend")
+                "OPENEXCHANGE_URL_LATEST setting should not be empty when using OpenExchangeBackend")
+        if not money_rates_settings.OPENEXCHANGE_URL_HISTORICAL:
+            raise ImproperlyConfigured(
+                "OPENEXCHANGE_URL_HISTORICAL setting should not be empty when using OpenExchangeBackend")
 
         if not money_rates_settings.OPENEXCHANGE_APP_ID:
             raise ImproperlyConfigured(
