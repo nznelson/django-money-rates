@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.core.management.base import BaseCommand, CommandError
 
 from ...settings import money_rates_settings, import_from_string
+import datetime
 
 
 class Command(BaseCommand):
@@ -22,7 +23,7 @@ class Command(BaseCommand):
 
         try:
             backend = backend_class()
-            backend.update_rates()
+            backend.update_rates(date=datetime.date.today())
         except Exception as e:
             raise CommandError("Error during rate update: %s" % e)
 
