@@ -55,10 +55,12 @@ def base_convert_money(amount, currency_from, currency_to, date):
     return ((amount / rate_from) * rate_to).quantize(Decimal("1.00"))
 
 
-def convert_money(amount, currency_from, currency_to, date=datetime.date.today()):
+def convert_money(amount, currency_from, currency_to, date=None):
     """
     Convert 'amount' from 'currency_from' to 'currency_to' and return a Money
     instance of the converted amount.
     """
+    if not date:
+        date = datetime.date.today()
     new_amount = base_convert_money(amount, currency_from, currency_to, date)
     return moneyed.Money(new_amount, currency_to)
